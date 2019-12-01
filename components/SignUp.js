@@ -17,8 +17,10 @@ const SignUp = (props) => {
     try {
       await props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
       .then(async res => {
+        const token = Object.entries(res.user)[5][1].b
+        console.log(token)
         await props.setUser(res.user)
-        props.storeData()
+        props.setToken(token)
       })
     }
     catch(err) {
