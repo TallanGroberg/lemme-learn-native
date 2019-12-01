@@ -24,17 +24,13 @@ const Home = (props) => {
     console.log('handlSignOut')
     try {
       await props.firebaseAuth.signOut()
-      console.log('firebase')
       await props.setToken('')
-      console.log('tokenset')
       await props.setUser({})
-      console.log('userset')
     }
     catch(err) {
       console.log(err)
     }
       finally{
-        console.log("in finally block")
         props.signOut()
       }
   }
