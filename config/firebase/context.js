@@ -1,6 +1,6 @@
 import React, {createContext, useState} from 'react'
 import {firebaseAuth} from './firebase'
-import {AsyncStorage } from 'react-native'
+import {AsyncStorage} from 'react-native';
 
 const firebaseContext = createContext({})
 
@@ -9,42 +9,17 @@ const {Provider, Consumer} = firebaseContext
 
 const FireBaseProvider = (props) => {
   const [user, setUser] = useState({})
-  
-  
-  
-  
+  const [token, setToken] = useState('')
 
-      
-     
-  const storeData = async () => {
-    console.log('hit')
-    try {
-        await AsyncStorage.setItem('token', user)
-    } 
-    catch(err) {
-      console.log('error message',err.message)
-    }
-    finally {
-      getUserToken(token)
-    }
+  console.log('in context',token, user.email)
+  
+  const signOut = async () => {
+    await setUser({})
+    await setToken('')
+    .then( () => {
+      console.log('tok', token, 'user',user.email)
+    })
   }
-
-  const getUserToken = async (token) => {
-   
-    try {
-      token = AsyncStorage.getItem('token')
-      if(token !== null) {
-        console.log('token', token)
-      }
-    } catch (err) {
-      // Error retrieving data
-      console.log(err.message);
-    }
-    return token;
-  }
-
-  console.log('get user token in context',getUserToken())
-  console.log('async storage',AsyncStorage.getItem('token'))
 
 
   return (
@@ -52,7 +27,9 @@ const FireBaseProvider = (props) => {
       firebaseAuth,
       user,
       setUser,
-      storeData,
+      setToken,
+      token,
+      signOut,
     }}>
       {props.children}
     </Provider>
