@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://qp-n9y.anonymous.testingfordatabase.exp.direct",
+  "packagerNgrokUrl": "https://packager.qp-n9y.anonymous.testingfordatabase.exp.direct",
+  "ngrokPid": 37289
 }

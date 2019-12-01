@@ -5,8 +5,8 @@ import axios from 'axios'
 import SignUp from './SignUp'
 const Home = (props) => {
   const [quizzes, setQuizzes] = useState([])
-  
-  console.log('props', props)
+  console.log('props in home',props)
+
 
   useEffect( () => {
     axios.get('http://lemme-learn.herokuapp.com/quiz')

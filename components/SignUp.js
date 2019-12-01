@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Button, Text, TextInput, AsyncStorage} from 'react-native'
+import {View, Button, Text, TextInput,} from 'react-native'
 import {withFirebase} from '../config/firebase/context'
 import {FormLabel} from 'react-native-elements'
 
@@ -10,20 +10,34 @@ const SignUp = (props) => {
   const [inputs, setInputs] = useState(initState)
   const [response, setResponse] = useState(null)
   const [errors, setErrors] = useState('')
-  // console.log('props in signup',props.firebaseAuth)
-  console.log(response)
+  
+  
 
   const handleSignUp = async () => {
     try {
       await props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
-      .then(res => {
-         props.setUser(res.user)
+      .then(async res => {
+        await props.setUser(res.user)
+        props.storeData()
       })
     }
     catch(err) {
       setErrors(err.message)
       console.log(errors)
     }
+  }
+
+  const handleLogin = async () => {
+    await props.firebaseAuth.loginWithEmail(inputs.email, inputs.password)
+    .then(res => {
+      // find out if this is the same access token as in the original object.
+      console.log('res.user as object ***************',res.user)
+      //access token!!!!
+      const token = Object.entries(res.user)[5][1].b
+    })
+    .catch( err => {
+      setErrors(err.message)
+    })
   }
 
   return (
@@ -37,6 +51,8 @@ const SignUp = (props) => {
        value={inputs.password} />
        <Button title="submit" onPress={handleSignUp} />
        {errors === '' ? null : <Text>{errors}</Text>}
+       <Button title="login" onPress={handleLogin} />
+       
       
     </View>
       
@@ -45,3 +61,5 @@ const SignUp = (props) => {
 };
 
 export default withFirebase(SignUp);
+//from array 
+

@@ -8,7 +8,10 @@ firebase.initializeApp(firebaseConfig)
 export const firebaseAuth = {
   //auth
   loginWithEmail: (email, password) => {
-    return firebase.auth().createUserWithEmailAndPassword(email,password)
+    return firebase.auth().signInWithEmailAndPassword(email,password)
+  },
+  getIdToken: (email,password) => {
+    return firebase.auth().getIdToken(true)
   },
   signupWithEmail: (email,password) => {
     return firebase.auth().createUserWithEmailAndPassword(email,password)
