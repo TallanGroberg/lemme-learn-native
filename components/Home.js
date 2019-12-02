@@ -5,6 +5,7 @@ import axios from 'axios'
 import SignUp from './SignUp'
 import Login from './Login'
 import Quizzes from './quiz/Quizzes'
+import MakeQuiz from './quiz/MakeQuiz'
 import Nav from './Nav'
 
 import { createAppContainer } from 'react-navigation';
@@ -31,15 +32,14 @@ const Home = (props) => {
 
   return (
     <View>
-      <Text>Welcome to let me learn where students learn better by giving teachers instant feedback</Text>
+      <Text>Welcome to let me learn where students learn better by giving teachers instant feedback on lectures</Text>
                   <Button 
                     title='sign up'
                       onPress={() => props.navigation.navigate('SignUp')} />
                   <Button 
                     title='login'
                       onPress={() => props.navigation.navigate('Login')} />
-               
-                
+
   </View>
   );
 };
@@ -48,16 +48,18 @@ const AppNavigator = createStackNavigator(
   {
     Home: Home,
     SignUp: SignUp,
-    Quizzes: Quizzes,
     Nav: Nav,
     Login: Login,
+    Quizzes: Quizzes,
+    MakeQuiz: MakeQuiz,
   },
+  //just for testing will be changed to home. 
   {
-    initialRouteName: 'Home',
+    initialRouteName:  "Home",
   }
 
 );
 
 
 
-export default createAppContainer(AppNavigator)
+export default withFirebase(createAppContainer(AppNavigator))

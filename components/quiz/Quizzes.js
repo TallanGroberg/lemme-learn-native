@@ -3,11 +3,12 @@ import {View, Text, Button, Alert} from 'react-native'
 import axios from 'axios'
 import Quiz from './Quiz'
 import Nav from '../Nav'
+import MakeQuiz from './MakeQuiz'
 import {withFirebase} from '../../config/firebase/context'
 
 const Quizzes = (props) => {
   const [quizzes, setQuizzes] = useState([])
-
+  
   useEffect( () => {
     axios.get('http://lemme-learn.herokuapp.com/quiz')
     .then(res => {
@@ -34,6 +35,7 @@ const Quizzes = (props) => {
       <Text>Quizzes</Text>
         {quizzes.map(quiz => {
           return <Quiz quiz={quiz} /> })}
+          <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} />
           {props.token === '' || undefined ? null : <Button title="sign out"  onPress={handleSignOut} />}
           
     </View>

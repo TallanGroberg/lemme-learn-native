@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Button, Text, TextInput,} from 'react-native'
 import {withFirebase} from '../config/firebase/context'
 import {FormLabel} from 'react-native-elements'
-
+import axios from 'axios'
 
 
 const SignUp = (props) => {
@@ -19,7 +19,10 @@ const SignUp = (props) => {
       //access token!!!!
       const token = Object.entries(res.user)[5][1].b
       await props.setToken(token)
-      await props.setUser(res.user)
+      await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
+      .then(res => {
+        props.setUser(res.data)
+      })
       props.navigation.navigate('Quizzes')
       
     })

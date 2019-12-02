@@ -27,6 +27,7 @@ export const firebaseAuth = {
   checkUserAuth: user => {
     return firebase.auth().onAuthStateChanged(user)
   },
+  
 
   //firestore 
 
