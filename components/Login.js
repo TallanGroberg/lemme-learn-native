@@ -19,16 +19,18 @@ const SignUp = (props) => {
       //access token!!!!
       const token = Object.entries(res.user)[5][1].b
       await props.setToken(token)
-      await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
-      .then(res => {
-        props.setUser(res.data)
-      })
-      props.navigation.navigate('Quizzes')
-      
-    })
-    .catch( err => {
-      setErrors(err.message)
-    })
+        await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
+          .then(user => {
+            props.setUser(user.data)
+          })
+          
+        })
+        .catch( err => {
+          setErrors(err.message)
+        })
+ 
+        props.navigation.navigate('Quizzes')
+
   }
 
   return (
