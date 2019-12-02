@@ -20,7 +20,8 @@ const SignUp = (props) => {
         const token = Object.entries(res.user)[5][1].b
         console.log(token)
         await props.setUser(res.user)
-        props.setToken(token)
+        await props.setToken(token)
+        props.navigation.navigate('Quizzes')
       })
     }
     catch(err) {
@@ -29,18 +30,7 @@ const SignUp = (props) => {
     }
   }
 
-  const handleLogin = async () => {
-    await props.firebaseAuth.loginWithEmail(inputs.email, inputs.password)
-    .then(res => {
-      //access token!!!!
-      const token = Object.entries(res.user)[5][1].b
-      props.setToken(token)
-      props.setUser(res.user)
-    })
-    .catch( err => {
-      setErrors(err.message)
-    })
-  }
+  
 
   return (
     <View>
@@ -53,7 +43,7 @@ const SignUp = (props) => {
        value={inputs.password} />
        <Button title="signup" onPress={handleSignUp} />
        {errors === '' ? null : <Text>{errors}</Text>}
-       <Button title="login" onPress={handleLogin} />
+   
        
       
     </View>

@@ -5,7 +5,7 @@ import {firebaseAuth} from './config/firebase/firebase'
 import FireBaseProvider, {withFireBase} from './config/firebase/context'
 import Home from './components/Home'
 import SignUp from './components/SignUp'
-
+import Nav from './components/Nav'
 
 const App = (props) => {
 
@@ -16,8 +16,14 @@ const App = (props) => {
     );
   }
 
+  
+
+
 
   export default App
+
+
+
 
 
 

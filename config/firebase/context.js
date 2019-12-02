@@ -15,10 +15,8 @@ const FireBaseProvider = (props) => {
   
   const signOut = async () => {
     await setUser({})
-    await setToken('')
-    .then( () => {
-      console.log('tok', token, 'user',user.email)
-    })
+     setToken('')
+   
   }
 
 

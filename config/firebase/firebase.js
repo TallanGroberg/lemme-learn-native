@@ -1,9 +1,14 @@
 import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/storage'
+import 'firebase/firestore'
 import firebaseConfig from './firebaseconfig'
 
 firebase.initializeApp(firebaseConfig)
+
+
+
+
 
 export const firebaseAuth = {
   //auth
@@ -25,14 +30,19 @@ export const firebaseAuth = {
 
   //firestore 
 
+
   createNewUser: userData => {
     return firebase
       .firestore()
       .collection()
       .doc(`${userData.uid}`)
       .set(userData)
-  }
+  },
 
 }
+
+
+
+
 
 export default firebase
