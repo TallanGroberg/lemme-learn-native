@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 54994,
   "expoServerNgrokUrl": "https://qp-n9y.anonymous.testingfordatabase.exp.direct",
   "packagerNgrokUrl": "https://packager.qp-n9y.anonymous.testingfordatabase.exp.direct",
-  "ngrokPid": 53894
+  "ngrokPid": 55008
 }

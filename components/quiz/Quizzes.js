@@ -35,8 +35,8 @@ const Quizzes = (props) => {
       <Text>Quizzes</Text>
         {quizzes.map(quiz => {
           return <Quiz quiz={quiz} /> })}
-          <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} />
-          {props.token === '' || undefined ? null : <Button title="sign out"  onPress={handleSignOut} />}
+          {props.user.teacher === false ? null : <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} /> }
+          <Button title="sign out"  onPress={handleSignOut} />
           
     </View>
   );
