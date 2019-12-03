@@ -14,9 +14,12 @@ const Quizzes = (props) => {
   useEffect( () => {
     axios.get('https://lemme-learn.herokuapp.com/quiz')
     .then(res => {
-      const yourQuizzes = res.data.filter(quiz => quiz.teacher === user.firebaseUid)
-
-      setQuizzes(quizzes => (yourQuizzes))
+      if(user.teacher === true) {
+        const yourQuizzes = res.data.filter(quiz => quiz.teacher === user.firebaseUid)
+        setQuizzes(quizzes => (yourQuizzes))
+      } else {
+        setQuizzes(res.data)
+      }
     })
     .catch(err => console.error(err))
   }, [])

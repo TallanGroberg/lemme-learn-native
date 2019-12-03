@@ -8,7 +8,7 @@ const {Provider, Consumer} = firebaseContext
 
 
 const FireBaseProvider = (props) => {
-  const [user, setUser] = useState({firebaseUid: '', email: ''})
+  const [user, setUser] = useState({firebaseUid: '', email: '', teacher: false})
   const [token, setToken] = useState('')
   console.log('user',user, token)
   

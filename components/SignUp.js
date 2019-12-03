@@ -18,12 +18,13 @@ const SignUp = (props) => {
       await props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
       .then(async res => {
           axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: inputs.email, firebaseUid: res.user.uid, teacher})
+          
+          const token = Object.entries(res.user)[5][1].b
             await props.setToken(token)
               await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
                       .then(user => {
                       props.setUser(user.data)
                       })
-            const token = Object.entries(res.user)[5][1].b
             
           })
           .catch(err => console.log(err))
@@ -33,7 +34,8 @@ const SignUp = (props) => {
       console.log(errors)
     }
     finally {
-      props.navigation.navigate('Quizzes')
+      console.log('user.teacher ???',props.user.teacher)
+      props.navigation.navigate(props.user.teacher === true ? 'Quizzes' : 'PickTeacher')
     }
   }
 

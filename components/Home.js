@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, View, Button, Alert } from 'react-native';
 import {withFirebase} from '../config/firebase/context'
 import axios from 'axios'
 import SignUp from './SignUp'
+import PickTeacher from './students/PickTeacher'
 import Login from './Login'
 import Quizzes from './quiz/Quizzes'
 import MakeQuiz from './quiz/MakeQuiz'
@@ -34,7 +35,7 @@ const Home = (props) => {
   );
 };
 
-const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp, MakeQuiz: MakeQuiz})
+const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp, PickTeacher: PickTeacher})
 const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz})
 const AppStack = createStackNavigator({Quizzes: Quizzes })
 const AppNavigator = createAppContainer(createSwitchNavigator(
