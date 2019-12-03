@@ -8,12 +8,12 @@ const {Provider, Consumer} = firebaseContext
 
 
 const FireBaseProvider = (props) => {
-  const [user, setUser] = useState({})
-  const [token, setToken] = useState('testing token')
+  const [user, setUser] = useState({firebaseUid: '', email: ''})
+  const [token, setToken] = useState('')
   console.log('user',user, token)
   
   const signOut = async () => {
-    await setUser({})
+    await setUser({firebaseUid: '', email: ''})
      setToken('')
    
   }

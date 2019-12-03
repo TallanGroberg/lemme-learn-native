@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, Alert} from 'react-native'
+import {View, Text, Button, Alert, AsyncStorage} from 'react-native'
 import axios from 'axios'
 import Quiz from './Quiz'
 import Nav from '../Nav'
@@ -10,7 +10,7 @@ const Quizzes = (props) => {
   const [quizzes, setQuizzes] = useState([])
   
   useEffect( () => {
-    axios.get('http://lemme-learn.herokuapp.com/quiz')
+    axios.get('https://lemme-learn.herokuapp.com/quiz')
     .then(res => {
       setQuizzes(quizzes => ([ ...res.data]))
     })

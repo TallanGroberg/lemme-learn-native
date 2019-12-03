@@ -8,7 +8,7 @@ import Quizzes from './quiz/Quizzes'
 import MakeQuiz from './quiz/MakeQuiz'
 import Nav from './Nav'
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import { firebaseAuth } from '../config/firebase/firebase';
@@ -20,15 +20,6 @@ const Home = (props) => {
   console.log(props.createNewQuiz)
 
 
-  useEffect( () => {
-    axios.get('http://lemme-learn.herokuapp.com/quiz')
-    .then(res => {
-      setQuizzes(quizzes => ([ ...res.data]))
-    })
-    .catch(err => console.error(err))
-  }, [])
-
- 
 
   return (
     <View>
@@ -44,22 +35,20 @@ const Home = (props) => {
   );
 };
 
-const AppNavigator = createStackNavigator(
+const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp, MakeQuiz: MakeQuiz})
+const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz})
+const AppStack = createStackNavigator({Quizzes: Quizzes })
+const AppNavigator = createAppContainer(createSwitchNavigator(
   {
-    Home: Home,
-    SignUp: SignUp,
-    Nav: Nav,
-    Login: Login,
-    Quizzes: Quizzes,
-    MakeQuiz: MakeQuiz,
+  auth: AuthStack,
+  App: AppStack,
+  MakeQuiz: MakeQuizStack
   },
-  //just for testing will be changed to home. 
   {
-    initialRouteName:  "Home",
+    initialRouteName: 'auth'
   }
-
-);
-
+))
 
 
-export default withFirebase(createAppContainer(AppNavigator))
+
+export default createAppContainer(AppNavigator)
