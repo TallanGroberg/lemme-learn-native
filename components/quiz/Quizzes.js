@@ -8,11 +8,15 @@ import {withFirebase} from '../../config/firebase/context'
 
 const Quizzes = (props) => {
   const [quizzes, setQuizzes] = useState([])
+    const { user, } = props
+
   
   useEffect( () => {
     axios.get('https://lemme-learn.herokuapp.com/quiz')
     .then(res => {
-      setQuizzes(quizzes => ([ ...res.data]))
+      const yourQuizzes = res.data.filter(quiz => quiz.teacher === user.firebaseUid)
+
+      setQuizzes(quizzes => (yourQuizzes))
     })
     .catch(err => console.error(err))
   }, [])

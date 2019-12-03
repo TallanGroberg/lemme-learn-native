@@ -15,9 +15,8 @@ import { firebaseAuth } from '../config/firebase/firebase';
 
 
 const Home = (props) => {
-  const [quizzes, setQuizzes] = useState([])
     const {token, user} = props
-  console.log(props.createNewQuiz)
+ 
 
 
 
