@@ -26,9 +26,9 @@ const Quizzes = (props) => {
     if(props.user.teacher === false) {
       console.log('its false ')
       props.user.yourTeachers.map(teacherId => {
-        axios.get(`https://lemme-learn.herokuapp.com/quiz/${teacherId}`)
+        axios.get(`https://lemme-learn.herokuapp.com/quiz/teachersquizzes/${teacherId}`)
         .then(res => {
-          setQuizzes(prev => ([...prev, res.data]))
+          setQuizzes(prev => ([...prev, ...res.data]))
         })
         .catch(err => console.log(err))
       })

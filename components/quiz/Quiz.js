@@ -5,6 +5,8 @@ const Quiz = (props) => {
   const [questions, setQuestions] = useState([])
   const {_id, name} = props.quiz
 
+  console.log('name is...', props)
+
   useEffect( () => {
     axios.get('http://lemme-learn.herokuapp.com/question')
     .then( res => {
@@ -19,8 +21,8 @@ const Quiz = (props) => {
     <View>
      
       <Button key={_id}
-              title={name}
-                onPress={() => Alert.alert(`this is ${name}`)} />
+              title={`${props.quiz.name}`}
+                onPress={() => Alert.alert(`this is `)} />
                 {questions.map(question => <Text>{question.question}</Text>)}
 
     </View>
