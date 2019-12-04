@@ -7,29 +7,16 @@ import MakeQuiz from './MakeQuiz'
 import {withFirebase} from '../../config/firebase/context'
 
 const Quizzes = (props) => {
-  const [quizzes, setQuizzes] = useState([])
-    const { user, } = props
+    console.log(props)
+    const { user, getQuizzes, quizzes } = props
 
-  console.log('from quizzes uid',props.user.firebaseUid)
+  console.log('from quizzes uid',user)
+  console.log('quizzes from Quizzes',quizzes)
   useEffect( () => {
-    if(props.user.teacher === true) {
-    axios.get('https://lemme-learn.herokuapp.com/quiz')
-    .then(res => {
-        const yourQuizzes = res.data.filter(quiz => quiz.teacher === props.user.firebaseUid)
-        setQuizzes(yourQuizzes)
-      })
-      .catch(err => console.error(err))
-    } else {
-      props.user.yourTeachers.map( aTeacher => {
-        console.log(aTeacher)
-        axios.get(`https://lemme-learn.herokuapp.com/quiz/teachersquizzes/${aTeacher}`)
-        .then(res => {
-          const filterTeachers = res.data.filter(aPerson => aPerson.teacher === aTeacher )
-          setQuizzes(prev => ([...prev, ...filterTeachers]))
-        })
-      })
-    }
+    props.getQuizzes()
   }, [])
+
+  
 
   const handleSignOut = async () => {
     console.log('handlSignOut')
@@ -47,10 +34,11 @@ const Quizzes = (props) => {
   return (
     <View>
       <Text>Quizzes</Text>
-        {quizzes.map(quiz => {
+        {props.quizzes.map(quiz => {
           return <Quiz quiz={quiz} /> })}
           {props.user.teacher === false ? null : <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} /> }
           <Button title="sign out"  onPress={handleSignOut} />
+          <Button title="get quizzes"  onPress={getQuizzes} />
           
     </View>
   );

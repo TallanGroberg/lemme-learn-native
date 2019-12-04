@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {View, Button, Text, Alert} from 'react-native'
+import {withFirebase} from '../../config/firebase/context'
 import axios from 'axios'
 const Quiz = (props) => {
   const [questions, setQuestions] = useState([])
   const {_id, name} = props.quiz
 
   useEffect( () => {
-    axios.get('http://lemme-learn.herokuapp.com/question')
+    axios.get('https://lemme-learn.herokuapp.com/question')
     .then( res => {
       const filterQuestions = res.data.filter(question => question.quiz_id === _id)
       setQuestions(filterQuestions)
@@ -27,4 +28,4 @@ const Quiz = (props) => {
   );
 };
 
-export default Quiz;
+export default withFirebase(Quiz);

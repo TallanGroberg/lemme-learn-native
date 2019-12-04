@@ -15,9 +15,14 @@ const PickTeacher = (props) => {
     })
   }, [])
 
+ 
+
   const addTeachers = () => {
+    const filterDuplicates = new Set(yourTeachers)
+    const filteredArray = [...filterDuplicates]
+    console.log('filtered array in pick teacher',)
     
-    axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
+    axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: filteredArray})
     .then(res => console.log(res))
     .catch(err => console.log(err))
     props.navigation.navigate('Quizzes')

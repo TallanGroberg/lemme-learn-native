@@ -1,5 +1,5 @@
 import React, {useState,} from 'react'
-import {View, Button, Text, TextInput} from 'react-native'
+import {View, Button, Text, TextInput, Alert} from 'react-native'
 import axios from 'axios'
 import {withFirebase} from '../../config/firebase/context'
 
@@ -10,9 +10,13 @@ const MakeQuiz = (props) => {
   console.log('inputs in makequiz',inputs)
   console.log(props.user.firebaseUid)
   const handleSubmit = () => {
-    axios.post('https://lemme-learn.herokuapp.com/quiz', inputs)
-    .catch(err => console.log(err))
-    props.navigation.push("Quizzes")
+    if(inputs.name === ''){
+      Alert.alert('you cannot have a blank quiz')
+    } else {
+      axios.post('https://lemme-learn.herokuapp.com/quiz', inputs)
+      .catch(err => console.log(err))
+      props.navigation.push("Quizzes")
+    }
   }
 
   

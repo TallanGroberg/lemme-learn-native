@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Platform, StyleSheet, Text, View, Button, Alert } from 'react-native';
-import {withFirebase} from '../config/firebase/context'
+import Context, {withFirebase} from '../config/firebase/context'
 import axios from 'axios'
 import SignUp from './SignUp'
 import PickTeacher from './students/PickTeacher'
@@ -30,12 +30,11 @@ const Home = (props) => {
                   <Button 
                     title='login'
                       onPress={() => props.navigation.navigate('Login')} />
-
-  </View>
+      </View>
   );
 };
 
-const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp, PickTeacher: PickTeacher})
+const AuthStack = createStackNavigator({ Home: Home, Login: Login, SignUp: SignUp, PickTeacher: PickTeacher, Context: Context,})
 const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz})
 const AppStack = createStackNavigator({Quizzes: Quizzes })
 const AppNavigator = createAppContainer(createSwitchNavigator(
