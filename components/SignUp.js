@@ -25,7 +25,6 @@ const SignUp = (props) => {
                       .then(user => {
                       props.setUser(user.data)
                       })
-            
           })
           .catch(err => console.log(err))
     }

@@ -15,9 +15,9 @@ const PickTeacher = (props) => {
     })
   }, [])
 
-  const addTeachers = () => {
+  const addTeachers = async  () => {
     
-    axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
+    await axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
     .then(res => console.log(res))
     .catch(err => console.log(err))
     props.navigation.navigate('Quizzes')
