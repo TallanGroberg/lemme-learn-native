@@ -21,7 +21,7 @@ const SignUp = (props) => {
         await props.setToken(token)
           await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
             .then(user => {
-              props.setUser({firebaseUid: res.user.uid, email: res.user.email})
+              props.setUser(user.data)
           })
           
         })

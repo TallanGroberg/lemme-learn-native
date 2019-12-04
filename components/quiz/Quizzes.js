@@ -10,16 +10,15 @@ const Quizzes = (props) => {
   const [quizzes, setQuizzes] = useState([])
     const { user, } = props
 
-  
+  console.log('from quizzes uid',props.user.firebaseUid)
   useEffect( () => {
     axios.get('https://lemme-learn.herokuapp.com/quiz')
     .then(res => {
-      if(user.teacher === true) {
-        const yourQuizzes = res.data.filter(quiz => quiz.teacher === user.firebaseUid)
-        setQuizzes(quizzes => (yourQuizzes))
-      } else {
-        setQuizzes(res.data)
-      }
+      if(props.user.teacher === true) {
+        const yourQuizzes = res.data.filter(quiz => quiz.teacher === props.user.firebaseUid)
+        
+        setQuizzes(yourQuizzes)
+      } 
     })
     .catch(err => console.error(err))
   }, [])
