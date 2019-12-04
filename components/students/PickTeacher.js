@@ -16,7 +16,6 @@ const PickTeacher = (props) => {
   }, [])
 
   const addTeachers = async  () => {
-    
     await axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
     .then(res => console.log(res))
     .catch(err => console.log(err))
