@@ -19,7 +19,7 @@ const PickTeacher = (props) => {
     await axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
     .then(res => console.log(res))
     .catch(err => console.log(err))
-    props.navigation.navigate('Quizzes')
+    props.navigation.navigate('Login')
   }
 
 
@@ -27,7 +27,7 @@ const PickTeacher = (props) => {
 
   return (
     <View>
-      <Text>Pick Teacher</Text>
+      <Text>Pick Teachers, then you will be prompted to login.</Text>
       {teachers.map(teacher => {
         return <Button title={teacher.email} onPress={() => setYourTeachers(prev => ([...prev, teacher.firebaseUid]))} />
       })}

@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, Alert, AsyncStorage} from 'react-native'
+import {View, Text, Button, Alert, AsyncStorage, SafeAreaView,
+  SectionList, ScrollView} from 'react-native'
 import axios from 'axios'
 import Quiz from './Quiz'
 import Nav from '../Nav'
 import MakeQuiz from './MakeQuiz'
-import {navigationActions} from 'react-navigation'
+import Questions from '../student/Questions'
+
 import {withFirebase} from '../../config/firebase/context'
+
+
 
 const Quizzes = (props) => {
   const [quizzes, setQuizzes] = useState([])
   
     const {user} = props
-
+  console.log(props)
   console.log('from quizzes uid',user)
   useEffect( () => {
     if(props.user.teacher === true) {
@@ -50,14 +54,19 @@ const Quizzes = (props) => {
   }
 
   return (
-    <View>
+    <ScrollView>
       <Text>Quizzes</Text>
+      
+      {quizzes.length === 0 ? <Text>try loging out and longing back in</Text> : null}
         {quizzes.map(quiz => {
-          return <Quiz quiz={quiz} /> })}
+          return <View>
+                    <Button title='take quiz' onPress={ () => props.navigation.navigate('Questions')} />
+                      <Quiz quiz={quiz} /> 
+                </View>
+            })}
           {props.user.teacher === false ? null : <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} /> }
           <Button title="sign out"  onPress={handleSignOut} />
-          
-    </View>
+          </ScrollView>
   );
 };
 

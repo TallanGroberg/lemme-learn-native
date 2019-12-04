@@ -17,7 +17,7 @@ const SignUp = (props) => {
     try {
       await props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
       .then(async res => {
-          axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: inputs.email, firebaseUid: res.user.uid, teacher})
+          await axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: inputs.email, firebaseUid: res.user.uid, teacher})
           
           const token = Object.entries(res.user)[5][1].b
             await props.setToken(token)

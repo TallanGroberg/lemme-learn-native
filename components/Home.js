@@ -6,6 +6,7 @@ import SignUp from './SignUp'
 import PickTeacher from './students/PickTeacher'
 import Login from './Login'
 import Quizzes from './quiz/Quizzes'
+import Questions from './student/Questions'
 import MakeQuiz from './quiz/MakeQuiz'
 import Nav from './Nav'
 
@@ -37,7 +38,7 @@ const Home = (props) => {
 
 const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp, PickTeacher: PickTeacher})
 const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz})
-const AppStack = createStackNavigator({Quizzes: Quizzes })
+const AppStack = createStackNavigator({Quizzes: Quizzes, Questions: Questions, })
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
   auth: AuthStack,
@@ -45,7 +46,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
   MakeQuiz: MakeQuizStack
   },
   {
-    initialRouteName: 'auth'
+    initialRouteName: 'App'
   }
 ))
 
