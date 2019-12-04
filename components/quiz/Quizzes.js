@@ -12,15 +12,23 @@ const Quizzes = (props) => {
 
   console.log('from quizzes uid',props.user.firebaseUid)
   useEffect( () => {
+    if(props.user.teacher === true) {
     axios.get('https://lemme-learn.herokuapp.com/quiz')
     .then(res => {
-      if(props.user.teacher === true) {
         const yourQuizzes = res.data.filter(quiz => quiz.teacher === props.user.firebaseUid)
-        
         setQuizzes(yourQuizzes)
-      } 
-    })
-    .catch(err => console.error(err))
+      })
+      .catch(err => console.error(err))
+    } else {
+      props.user.yourTeachers.map( aTeacher => {
+        console.log(aTeacher)
+        axios.get(`https://lemme-learn.herokuapp.com/quiz/teachersquizzes/${aTeacher}`)
+        .then(res => {
+          const filterTeachers = res.data.filter(aPerson => aPerson.teacher === aTeacher )
+          setQuizzes(prev => ([...prev, ...filterTeachers]))
+        })
+      })
+    }
   }, [])
 
   const handleSignOut = async () => {
