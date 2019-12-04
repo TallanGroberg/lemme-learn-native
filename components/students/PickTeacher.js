@@ -16,11 +16,11 @@ const PickTeacher = (props) => {
   }, [])
 
   const addTeachers = () => {
-    console.log('hit add teacher')
+    
     axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
     .then(res => console.log(res))
     .catch(err => console.log(err))
-    console.log('hit add after the requestteacher')
+    props.navigation.navigate('Quizzes')
   }
 
 
@@ -28,10 +28,9 @@ const PickTeacher = (props) => {
 
   return (
     <View>
-      
       <Text>Pick Teacher</Text>
       {teachers.map(teacher => {
-        return <Button title="save teacher" onPress={() => setYourTeachers(prev => ([...prev, teacher.firebaseUid]))} />
+        return <Button title={teacher.email} onPress={() => setYourTeachers(prev => ([...prev, teacher.firebaseUid]))} />
       })}
       <Button title='save teachers' onPress={addTeachers} />
     </View>
