@@ -9,6 +9,7 @@ import Quizzes from './quiz/Quizzes'
 import MakeQuiz from './quiz/MakeQuiz'
 import Questions from './questions/Questions'
 import MakeQuestions from './questions/MakeQuestions'
+import AnswerQuestions from './questions/AnswerQuestions'
 import Nav from './Nav'
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -34,13 +35,15 @@ const Home = (props) => {
 };
 
 const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp,})
-const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher,Questions: Questions,})
+const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher,})
+const MakeQuestionStack = createStackNavigator({Questions: Questions,AnswerQuestions: AnswerQuestions,})
 const AppStack = createStackNavigator({Quizzes: Quizzes, })
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
   auth: AuthStack,
   App: AppStack,
-  MakeQuiz: MakeQuizStack
+  MakeQuiz: MakeQuizStack,
+  MakeQuestion: MakeQuestionStack,
   },
   {
     initialRouteName: 'auth'

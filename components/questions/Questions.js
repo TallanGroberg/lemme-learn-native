@@ -1,9 +1,10 @@
 import React, { useEffect, useState, } from 'react';
-import {View, Text,} from 'react-native'
+import {View, Text, Button} from 'react-native'
 import {withFirebase} from '../../config/firebase/context'
 import axios from 'axios'
 
 import MakeQuestions from './MakeQuestions'
+import AnswerQuestions from './AnswerQuestions'
 
 const Questions = props => {
   const [questions, setQuestions] = useState([])
@@ -32,7 +33,11 @@ const Questions = props => {
                   <Text>{question.question}</Text>
               </View>
       })}
-      {props.user.teacher === true && <MakeQuestions updateQuestions={updateQuestions}  />}
+      {props.user.teacher === true ? 
+        <MakeQuestions updateQuestions={updateQuestions} />
+          : 
+        <AnswerQuestions updateQuestions={updateQuestions} />}
+          <Button title='back to quizzes' onPress={() => props.navigation.push("Quizzes")} />
     </View>
   );
 };
