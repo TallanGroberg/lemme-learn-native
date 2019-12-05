@@ -5,6 +5,7 @@ import {withFirebase} from '../../config/firebase/context'
 const PickTeacher = (props) => {
   const [teachers, setTeachers] = useState([])
   const [yourTeachers, setYourTeachers] = useState([])
+  const [error, setError] = useState('')
   console.log('teacher in pickTeacher',yourTeachers)
   console.log('your firebase uid', props.user)
   useEffect( () => {
@@ -16,10 +17,17 @@ const PickTeacher = (props) => {
   }, [])
 
   const addTeachers = async  () => {
-    await axios.put(`http://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-    props.navigation.navigate('Login')
+    try {
+      await axios.put(`https://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
+      .then(res => console.log(res.data, res.status))
+      .catch(err => setError(err.message))
+    }
+    catch(err) {
+      setError(err.message)
+    }
+    finally {
+      props.navigation.navigate('Quizzes')
+    }
   }
 
 
@@ -28,6 +36,7 @@ const PickTeacher = (props) => {
   return (
     <View>
       <Text>Pick Teachers, then you will be prompted to login.</Text>
+      {error === '' || undefined || null ? null : <Text>{error}</Text>}
       {teachers.map(teacher => {
         return <Button title={teacher.email} onPress={() => setYourTeachers(prev => ([...prev, teacher.firebaseUid]))} />
       })}

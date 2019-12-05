@@ -64,7 +64,11 @@ const Quizzes = (props) => {
                       <Quiz quiz={quiz} /> 
                 </View>
             })}
-          {props.user.teacher === false ? null : <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} /> }
+          {props.user.teacher === false ?
+              <Button title="add teachers" onPress={() => props.navigation.navigate('PickTeacher')} /> 
+            :
+              <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} /> 
+          }
           <Button title="sign out"  onPress={handleSignOut} />
           </ScrollView>
   );

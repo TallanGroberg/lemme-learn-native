@@ -36,8 +36,8 @@ const Home = (props) => {
   );
 };
 
-const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp, PickTeacher: PickTeacher})
-const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz})
+const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp,})
+const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher})
 const AppStack = createStackNavigator({Quizzes: Quizzes, Questions: Questions, })
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
@@ -46,7 +46,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
   MakeQuiz: MakeQuizStack
   },
   {
-    initialRouteName: 'App'
+    initialRouteName: 'auth'
   }
 ))
 
