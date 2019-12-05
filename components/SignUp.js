@@ -13,18 +13,11 @@ const SignUp = (props) => {
   const [teacher, setTeacher] = useState(false)
     console.log(teacher)
 
-  const handleSignUp = async () => {
+  const handleSignUp = (inputs, teacher) => {
     try {
-      await props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
-      .then(async res => {
-          await axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: inputs.email, firebaseUid: res.user.uid, teacher})
-          
-          const token = Object.entries(res.user)[5][1].b
-            await props.setToken(token)
-              await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
-                      .then(user => {
-                      props.setUser(user.data)
-                      })
+      props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
+      .then(res => {
+        props.handleSignUpInContext(res.user)
           })
           .catch(err => console.log(err))
     }

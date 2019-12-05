@@ -8,24 +8,24 @@ const {Provider, Consumer} = firebaseContext
 
 
 const FireBaseProvider = (props) => {
-  const [user, setUser] = useState({
-   
-    _id: "5de6f72b2478ed0017cf1c90",
-    email: "Sa2@s.com",
-    firebaseUid: "4pG6fUMnkFXZhd6r33t8xHVhOqE2",
-    teacher: false,
-    yourTeachers: [
-      "xtbuTsXyBwUNBJXedraZQfnP4wr2",
-      "H5cmhhY8pdhILReT7q8U1GiGtB83",
-    ],
-  })
+  const [user, setUser] = useState({})
   const [token, setToken] = useState('')
   console.log('user',user, token)
   
+  handleSignUpInContext = async (userFromFirebase, teacher) => {
+    await axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: userFromFirebase.email, firebaseUid: userFromFirebase.uid, teacher})
+          console.log('posted user')
+          const token = Object.entries(userFromFirebase.user)[5][1].b
+            await props.setToken(token)
+              await axios.get(`http://lemme-learn.herokuapp.com/user/${userFromFirebase.user.uid}`)
+                      .then(user => {
+                        console.log('user data in handleSgnUlInContext',)
+                      props.setUser(user.data)
+                      })
+  }
   const signOut = async () => {
     await setUser({firebaseUid: '', email: ''})
      setToken('')
-   
   }
 
 
@@ -37,6 +37,7 @@ const FireBaseProvider = (props) => {
       setToken,
       token,
       signOut,
+      handleSignUpInContext
     }}>
       {props.children}
     </Provider>
