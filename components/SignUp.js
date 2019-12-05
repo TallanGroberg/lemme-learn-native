@@ -11,7 +11,7 @@ const SignUp = (props) => {
   const [response, setResponse] = useState(null)
   const [errors, setErrors] = useState('')
  
-    console.log('inputs', inputs.email)
+
 
   const handleSignUp = async () => {
      
@@ -21,12 +21,12 @@ const SignUp = (props) => {
             axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: res.user.email, firebaseUid: res.user.uid, teacher: inputs.teacher})
             .then(res => console.log('post went through',res.status))
               .catch(err => console.log('post failed',err))
-                console.log('posted user')
+               
                 const token = await Object.entries(res.user)[5][1].b
                   await props.setToken(token)
                     await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
                       .then(user => {
-                        console.log('user data in handleSgnUlInContext',)
+                       
                           props.setUser(user.data)
                       })
           })
@@ -39,8 +39,8 @@ const SignUp = (props) => {
 
     
 
-      console.log('user. insign up',props.user)
-       props.navigation.navigate(props.user.teacher === true ? 'Quizzes' : 'PickTeacher')
+    
+       props.navigation.navigate("Quizzes")
     }
   
 

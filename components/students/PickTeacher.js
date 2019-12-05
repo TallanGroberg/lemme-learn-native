@@ -6,8 +6,8 @@ const PickTeacher = (props) => {
   const [teachers, setTeachers] = useState([])
   const [yourTeachers, setYourTeachers] = useState([])
   const [error, setError] = useState('')
-  console.log('teacher in pickTeacher',yourTeachers)
-  console.log('your firebase uid', props.user)
+
+  
   useEffect( () => {
     axios.get('https://lemme-learn.herokuapp.com/user')
     .then(res => {
@@ -26,7 +26,7 @@ const PickTeacher = (props) => {
       setError(err.message)
     }
     finally {
-      props.navigation.navigate('Quizzes')
+      props.navigation.navigate('Login')
     }
   }
 

@@ -5,6 +5,7 @@ import {FormLabel} from 'react-native-elements'
 import axios from 'axios'
 
 
+
 const SignUp = (props) => {
   const initState = { email: '', password: ''}
   const [inputs, setInputs] = useState(initState)
@@ -17,10 +18,12 @@ const SignUp = (props) => {
     await props.firebaseAuth.loginWithEmail(inputs.email, inputs.password)
     .then(async res => {
       //access token!!!!
+     
       const token = Object.entries(res.user)[5][1].b
         await props.setToken(token)
           await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
             .then(user => {
+           
               props.setUser(user.data)
           })
           

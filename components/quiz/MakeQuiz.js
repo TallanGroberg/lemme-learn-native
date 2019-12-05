@@ -7,8 +7,8 @@ import {withFirebase} from '../../config/firebase/context'
 const MakeQuiz = (props) => {
   const initState = {teacher: props.user.firebaseUid, name: ''}
   const [inputs, setInputs] = useState(initState)
-  console.log('inputs in makequiz',inputs)
-  console.log(props.user.firebaseUid)
+ 
+
   const handleSubmit = () => {
     axios.post('https://lemme-learn.herokuapp.com/quiz', inputs)
     .catch(err => console.log(err))

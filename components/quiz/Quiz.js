@@ -9,7 +9,7 @@ const Quiz = (props) => {
   const [teachersName, setTeachersName] = useState('')
   const {_id, name} = props.quiz
 
-  console.log('navingation props in quiz', props.navigation)
+
 
   useEffect( () => {
     axios.get('http://lemme-learn.herokuapp.com/question')
@@ -27,15 +27,12 @@ const Quiz = (props) => {
   }, [])
 
 
-
   return (
     <View>
       <Text>{teachersName === undefined || '' ? null : teachersName}</Text>
-    
-      <Button key={_id}
-              title={`quiz name: ${name}`}
-                onPress={() => Alert.alert(`this is ${name} `)} />
-                {questions.map(question => <Text>{question.question}</Text>)}
+        <Button key={_id}
+                title={`quiz name: ${name}`}
+                  onPress={() => Alert.alert(`this is ${name} `)} />
     </View>
   );
 };

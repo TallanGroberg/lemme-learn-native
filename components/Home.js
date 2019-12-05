@@ -18,9 +18,6 @@ import { firebaseAuth } from '../config/firebase/firebase';
 
 const Home = (props) => {
     const {token, user} = props
- 
-
-
 
   return (
     <View>
@@ -31,7 +28,6 @@ const Home = (props) => {
                   <Button 
                     title='login'
                       onPress={() => props.navigation.navigate('Login')} />
-
   </View>
   );
 };

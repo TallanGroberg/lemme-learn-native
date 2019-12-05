@@ -14,10 +14,17 @@ import {withFirebase} from '../../config/firebase/context'
 const Quizzes = (props) => {
   const [quizzes, setQuizzes] = useState([])
   
-    const {user} = props
-  console.log(props)
-  console.log('from quizzes uid',user)
+    const {user, setUser} = props
+ 
+  
   useEffect( () => {
+    axios.get(`https://lemm-learn.herokuapp.com/${user.firebaseUid}`)
+      .then( res => {
+        console.log('got user again!!')
+        setUser(...res.data)
+      })
+
+
     if(props.user.teacher === true) {
     axios.get('https://lemme-learn.herokuapp.com/quiz')
     .then(res => {
@@ -28,7 +35,6 @@ const Quizzes = (props) => {
     } 
 
     if(props.user.teacher === false) {
-      console.log('its false ')
       props.user.yourTeachers.map(teacherId => {
         axios.get(`https://lemme-learn.herokuapp.com/quiz/teachersquizzes/${teacherId}`)
         .then(res => {
@@ -38,6 +44,12 @@ const Quizzes = (props) => {
       })
     }
   }, [])
+
+  const goToQuiz = (quiz) => {
+    console.log('hit goToQuiz')
+    props.setQuiz(quiz)
+    props.navigation.navigate('Questions')
+  }
 
 
   const handleSignOut = async () => {
@@ -50,24 +62,23 @@ const Quizzes = (props) => {
     catch(err) {
       console.log(err)
     }
-    
   }
 
   return (
     <ScrollView>
       <Text>Quizzes</Text>
       
-      {quizzes.length === 0 ? <Text>try loging out and longing back in</Text> : null}
+      {quizzes.length === 0 ? <Text>{props.teacher === true ? `try refreshing the page` : `Pick some teachers to see there quizzes, log back in and the quizzes should appear`}</Text> : null}
         {quizzes.map(quiz => {
           return <View>
-                    <Button title='take quiz' onPress={ () => props.navigation.navigate('Questions')} />
                       <Quiz quiz={quiz} /> 
+                      <Button title="take quiz" onPress={() => goToQuiz(quiz) } />
                 </View>
             })}
           {props.user.teacher === false ?
-              <Button title="add teachers" onPress={() => props.navigation.navigate('PickTeacher')} /> 
+              <Button title={props.user.yourTeachers.length === undefined || props.user.yourTeachers.length > 0 ? 'change teachers' : 'add teachers'} onPress={() => props.navigation.navigate('PickTeacher')} /> 
             :
-              <Button title='make a quiz' onPress={ () => props.navigation.navigate('MakeQuiz')} /> 
+              <Button title='make a quiz' onPress={() => props.navigation.navigate('MakeQuiz')} /> 
           }
           <Button title="sign out"  onPress={handleSignOut} />
           </ScrollView>
