@@ -9,7 +9,26 @@ const SignUp = (props) => {
   const initState = { email: '', password: ''}
   const [inputs, setInputs] = useState(initState)
   const [teacher, setTeacher] = useState(false)
-    const {errors, response, handleSignUp } = props
+    console.log(teacher)
+
+  const handleSignUp = (inputs, teacher) => {
+    try {
+      props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
+      .then(res => {
+        props.handleSignUpInContext(res.user)
+          })
+          .catch(err => console.log(err))
+    }
+    catch(err) {
+      setErrors(err.message)
+      console.log(errors)
+    }
+    finally {
+      console.log('user.teacher ???',props.user.teacher)
+      props.navigation.navigate(props.user.teacher === true ? 'Quizzes' : 'PickTeacher')
+    }
+  }
+
   
       console.log('props in sugnUp',props)
   return (

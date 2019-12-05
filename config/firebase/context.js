@@ -17,54 +17,20 @@ const FireBaseProvider = (props) => {
   console.log('token in context',token)
   console.log('quizzes in context',quizzes)
   
-  const handleSignUp = async (inputs) => {
-
-    console.log('props in context',props)
-    
-      firebaseAuth.signupWithEmail(inputs.email, inputs.password)
-      .then(async res => {
-          await axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: inputs.email, firebaseUid: res.user.uid, teacher})
-            .catch(err => console.log( err.message))
-
-            const token = Object.entries(res.user)[5][1].b
-
-              await props.setToken(token)
-                axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
-                        .then(user => {
-                          setUser(user.data)
-                        })
-                        .catch(err => setErrors(prev => ([...prev, err.message])))
-      })
-          .catch(err => setErrors(prev => ([...prev, err.message])))
-            setErrors(prev => ([...prev, err.message]))
-            prop.navigation.navigate('PickTeacher')
-
+  handleSignUpInContext = async (userFromFirebase, teacher) => {
+    await axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: userFromFirebase.email, firebaseUid: userFromFirebase.uid, teacher})
+          console.log('posted user')
+          const token = Object.entries(userFromFirebase.user)[5][1].b
+            await props.setToken(token)
+              await axios.get(`http://lemme-learn.herokuapp.com/user/${userFromFirebase.user.uid}`)
+                      .then(user => {
+                        console.log('user data in handleSgnUlInContext',)
+                      props.setUser(user.data)
+                      })
   }
-
   const signOut = async () => {
     await setUser({})
      setToken('')
-  }
-
-  const getQuizzes = () => {
-    if(user.teacher === true) {
-      axios.get('https://lemme-learn.herokuapp.com/quiz')
-      .then(res => {
-          const yourQuizzes = res.data.filter(quiz => quiz.teacher === user.firebaseUid)
-          setQuizzes(yourQuizzes)
-        })
-        .catch(err => console.error(err))
-      } 
-      if(user.teacher === false){
-        user.yourTeachers.map( aTeacher => {
-          console.log('a teacher',aTeacher)
-          axios.get(`https://lemme-learn.herokuapp.com/quiz/teachersquizzes/${aTeacher}`)
-          .then(res => {
-            setQuizzes(prev => ([...prev, ...res.data]))
-          })
-          .catch(err => console.log(err))
-        })
-      }
   }
 
 
@@ -76,9 +42,7 @@ const FireBaseProvider = (props) => {
       setToken,
       token,
       signOut,
-      quizzes,
-      getQuizzes,
-      handleSignUp,
+      handleSignUpInContext
     }}>
       {props.children}
     </Provider>
