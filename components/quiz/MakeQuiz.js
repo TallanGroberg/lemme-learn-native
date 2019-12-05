@@ -7,8 +7,8 @@ import {withFirebase} from '../../config/firebase/context'
 const MakeQuiz = (props) => {
   const initState = {teacher: props.user.firebaseUid, name: ''}
   const [inputs, setInputs] = useState(initState)
-  console.log('inputs in makequiz',inputs)
-  console.log(props.user.firebaseUid)
+ 
+
   const handleSubmit = () => {
     if(inputs.name === ''){
       Alert.alert('you cannot have a blank quiz')

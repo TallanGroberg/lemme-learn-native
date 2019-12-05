@@ -6,29 +6,43 @@ import axios from 'axios'
 
 
 const SignUp = (props) => {
-  const initState = { email: '', password: ''}
+  const initState = { email: '', password: '', teacher: false,}
   const [inputs, setInputs] = useState(initState)
-  const [teacher, setTeacher] = useState(false)
-    const {setErrors, errors, } = props
-    console.log(teacher)
+  const [response, setResponse] = useState(null)
+  const [errors, setErrors] = useState('')
+ 
 
-  const handleSignUp = (inputs, teacher) => {
-    try {
-      props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
-      .then(res => {
-        props.handleSignUpInContext(res.user)
+
+  const handleSignUp = async () => {
+     
+      if (typeof(inputs.email) === 'string' ) {
+        await props.firebaseAuth.signupWithEmail(inputs.email, inputs.password)
+          .then( async res => {
+            axios.post(`http://lemme-learn.herokuapp.com/user/`, {email: res.user.email, firebaseUid: res.user.uid, teacher: inputs.teacher})
+            .then(res => console.log('post went through',res.status))
+              .catch(err => console.log('post failed',err))
+               
+                const token = await Object.entries(res.user)[5][1].b
+                  await props.setToken(token)
+                    await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
+                      .then(user => {
+                       
+                          props.setUser(user.data)
+                      })
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            console.log(err.message)
+            console.log('hit error block')
+            setErrors(err.message)
+          })
+        }
+
+    
+
+    
+       props.navigation.navigate("Quizzes")
     }
-    catch(err) {
-      setErrors(err.message)
-      console.log(errors)
-    }
-    finally {
-      console.log('user.teacher ???',props.user.teacher)
-      props.navigation.navigate(props.user.teacher === true ? 'Quizzes' : 'PickTeacher')
-    }
-  }
+  
 
   
       console.log('props in sugnUp',props)
@@ -45,10 +59,9 @@ const SignUp = (props) => {
             <Button title="signup" onPress={() => handleSignUp(inputs)} />
 
       <Text>are you a teacher or student? </Text>
-        <Button title='teacher' onPress={() => setTeacher(true)}/>
-          <Button title='student' onPress={() => setTeacher(false)}/>
-
-            {errors !== '' ? <Text>{errors}</Text> : null}
+        <Button title='teacher' onPress={() => setInputs(prev => ({...prev, teacher: true}))}/>
+        <Button title='student' onPress={() => setInputs(prev => ({...prev, teacher: false}))}/>
+      
       
     </View>
       

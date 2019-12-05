@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {View, Button, Text, Alert} from 'react-native'
 import {withFirebase} from '../../config/firebase/context'
+import Question from '../questions/Questions'
 import axios from 'axios'
-
-import Question from '../student/Questions'
 
 const Quiz = (props) => {
   const [questions, setQuestions] = useState([])
   const [teachersName, setTeachersName] = useState('')
   const {_id, name} = props.quiz
 
-  console.log('navingation props in quiz', props.navigation)
+
 
   useEffect( () => {
     axios.get('https://lemme-learn.herokuapp.com/question')
@@ -28,15 +27,12 @@ const Quiz = (props) => {
   }, [])
 
 
-
   return (
     <View>
       <Text>{teachersName === undefined || '' ? null : teachersName}</Text>
-    
-      <Button key={_id}
-              title={`quiz name: ${name}`}
-                onPress={() => Alert.alert(`this is ${name} `)} />
-                {questions.map(question => <Text>{question.question}</Text>)}
+        <Button key={_id}
+                title={`quiz name: ${name}`}
+                  onPress={() => Alert.alert(`this is ${name} `)} />
     </View>
   );
 };

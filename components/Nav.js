@@ -6,7 +6,6 @@ import {withFirebase} from '../config/firebase/context'
 const Nav = (props) => {
 
 
-  
   const handleSignOut = async () => {
     console.log('handlSignOut')
     try {

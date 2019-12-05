@@ -6,21 +6,19 @@ import SignUp from './SignUp'
 import PickTeacher from './students/PickTeacher'
 import Login from './Login'
 import Quizzes from './quiz/Quizzes'
-import Questions from './student/Questions'
 import MakeQuiz from './quiz/MakeQuiz'
+import Questions from './questions/Questions'
+import MakeQuestions from './questions/MakeQuestions'
 import Nav from './Nav'
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
 import { firebaseAuth } from '../config/firebase/firebase';
+
 
 
 const Home = (props) => {
     const {token, user} = props
- 
-
-
 
   return (
     <View>
@@ -31,13 +29,13 @@ const Home = (props) => {
                   <Button 
                     title='login'
                       onPress={() => props.navigation.navigate('Login')} />
-      </View>
+  </View>
   );
 };
 
-const AuthStack = createStackNavigator({ Home: Home, Login: Login, SignUp: SignUp, PickTeacher: PickTeacher, Context: Context,})
-const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz})
-const AppStack = createStackNavigator({Quizzes: Quizzes, Questions: Questions, })
+const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp,})
+const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher,Questions: Questions,})
+const AppStack = createStackNavigator({Quizzes: Quizzes, })
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
   auth: AuthStack,
@@ -45,7 +43,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
   MakeQuiz: MakeQuizStack
   },
   {
-    initialRouteName: 'App'
+    initialRouteName: 'auth'
   }
 ))
 
