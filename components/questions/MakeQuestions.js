@@ -23,10 +23,8 @@ const MakeQuestions = (props) => {
     .catch(err => console.log(err))
     console.log('no errors submit handled')
     
-
   }
 
-  console.log(inputs)
   return (
     <View>
       <Text>MakeQuestions</Text>

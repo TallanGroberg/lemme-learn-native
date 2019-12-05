@@ -21,6 +21,7 @@ const MakeQuiz = (props) => {
       <Text>make a quiz</Text>
       <TextInput placeholder="quiz name" onChangeText={name => setInputs(prev => ({...prev, name})) } />
       <Button title='submit' onPress={handleSubmit} />
+      <Button title='go back to quizzes' onPress={() => props.navigation.navigate("Quizzes")} />
     </View>
   );
 };
