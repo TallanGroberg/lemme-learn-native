@@ -9,6 +9,7 @@ const SignUp = (props) => {
   const initState = { email: '', password: ''}
   const [inputs, setInputs] = useState(initState)
   const [teacher, setTeacher] = useState(false)
+    const {setErrors, errors, } = props
     console.log(teacher)
 
   const handleSignUp = (inputs, teacher) => {

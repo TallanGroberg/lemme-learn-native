@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://kk-rfv.anonymous.testingfordatabase.exp.direct",
   "packagerNgrokUrl": "https://packager.kk-rfv.anonymous.testingfordatabase.exp.direct",
-  "ngrokPid": 74084,
+  "ngrokPid": 74148,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19004,
+  "packagerPid": 74134
 }
