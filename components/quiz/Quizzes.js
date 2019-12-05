@@ -5,7 +5,7 @@ import axios from 'axios'
 import Quiz from './Quiz'
 import Nav from '../Nav'
 import MakeQuiz from './MakeQuiz'
-import Questions from '../student/Questions'
+import Questions from '../questions/Questions'
 
 import {withFirebase} from '../../config/firebase/context'
 
@@ -72,7 +72,7 @@ const Quizzes = (props) => {
         {quizzes.map(quiz => {
           return <View>
                       <Quiz quiz={quiz} /> 
-                      <Button title="take quiz" onPress={() => goToQuiz(quiz) } />
+                      <Button title={user.teacher === true ? 'make questions' : 'take quiz'} onPress={() => goToQuiz(quiz) } />
                 </View>
             })}
           {props.user.teacher === false ?

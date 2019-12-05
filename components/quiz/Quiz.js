@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Button, Text, Alert} from 'react-native'
 import axios from 'axios'
 import {withFirebase} from '../../config/firebase/context'
-import Question from '../student/Questions'
+import Question from '../questions/Questions'
 
 const Quiz = (props) => {
   const [questions, setQuestions] = useState([])

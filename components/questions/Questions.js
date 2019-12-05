@@ -3,8 +3,12 @@ import {View, Text,} from 'react-native'
 import {withFirebase} from '../../config/firebase/context'
 import axios from 'axios'
 
+import MakeQuestions from './MakeQuestions'
+
 const Questions = props => {
   const [questions, setQuestions] = useState([])
+    const {user} = props
+
   console.log('props from question',questions)
   useEffect( () => {
     axios.get('http://lemme-learn.herokuapp.com/question')
@@ -14,12 +18,17 @@ const Questions = props => {
     })
   }, [])
 
+ 
+
   return (
     <View>
       <Text>questions</Text>
       {questions.map(question => {
-        return <Text>{question.question}</Text>
+        return <View>
+                  <Text>{question.question}</Text>
+              </View>
       })}
+      {props.user.teacher === true && <MakeQuestions />}
     </View>
   );
 };
