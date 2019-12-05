@@ -11,12 +11,16 @@ const Questions = props => {
 
   console.log('props from question',questions)
   useEffect( () => {
+    updateQuestions()
+  }, [])
+
+  const updateQuestions = () => {
     axios.get('http://lemme-learn.herokuapp.com/question')
     .then( res => {
       const filterQuestions = res.data.filter(question => question.quiz_id === props.quiz._id)
       setQuestions(filterQuestions)
     })
-  }, [])
+  }
 
  
 
@@ -28,7 +32,7 @@ const Questions = props => {
                   <Text>{question.question}</Text>
               </View>
       })}
-      {props.user.teacher === true && <MakeQuestions />}
+      {props.user.teacher === true && <MakeQuestions updateQuestions={updateQuestions}  />}
     </View>
   );
 };

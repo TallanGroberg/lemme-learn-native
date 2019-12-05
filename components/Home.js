@@ -34,8 +34,8 @@ const Home = (props) => {
 };
 
 const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp,})
-const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher})
-const AppStack = createStackNavigator({Quizzes: Quizzes, Questions: Questions, })
+const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher,Questions: Questions,})
+const AppStack = createStackNavigator({Quizzes: Quizzes, })
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
   auth: AuthStack,
