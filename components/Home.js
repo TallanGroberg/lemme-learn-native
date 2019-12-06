@@ -18,23 +18,7 @@ import { firebaseAuth } from '../config/firebase/firebase';
 
 
 
-const Home = (props) => {
-    const {token, user} = props
-
-  return (
-    <View>
-      <Text>Welcome to let me learn where students learn better by giving teachers instant feedback on lectures</Text>
-                  <Button 
-                    title='sign up'
-                      onPress={() => props.navigation.navigate('SignUp')} />
-                  <Button 
-                    title='login'
-                      onPress={() => props.navigation.navigate('Login')} />
-  </View>
-  );
-};
-
-const AuthStack = createStackNavigator({Home: Home, Login: Login, SignUp: SignUp,})
+const AuthStack = createStackNavigator({Login: Login, SignUp: SignUp,})
 const MakeQuizStack = createStackNavigator({MakeQuiz: MakeQuiz, PickTeacher: PickTeacher,})
 const MakeQuestionStack = createStackNavigator({Questions: Questions,AnswerQuestions: AnswerQuestions,})
 const AppStack = createStackNavigator({Quizzes: Quizzes, })

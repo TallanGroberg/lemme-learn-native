@@ -37,17 +37,14 @@ const SignUp = (props) => {
           })
         }
 
-    
-
-    
-       props.navigation.navigate("Quizzes")
+        props.navigation.navigate("Quizzes")
     }
   
 
   
       console.log('props in sugnUp',props)
   return (
-    <View>
+    <ViewStyle>
       <Text>Sign up. must provide a valid email address.</Text>
         <TextInput placeholder="email"
           onChangeText={ email => setInputs(prev => ({...prev, email}))} 
@@ -56,18 +53,30 @@ const SignUp = (props) => {
       <TextInput placeholder="password"
         onChangeText={ password => setInputs(prev => ({...prev, password}))}
           value={inputs.password} />
-            <Button title="signup" onPress={() => handleSignUp(inputs)} />
+            <TextStyle onPress={() => handleSignUp(inputs)}>signup</TextStyle>
 
       <Text>are you a teacher or student? </Text>
         <Button title='teacher' onPress={() => setInputs(prev => ({...prev, teacher: true}))}/>
         <Button title='student' onPress={() => setInputs(prev => ({...prev, teacher: false}))}/>
       
       
-    </View>
+    </ViewStyle>
       
     
   );
 };
+
+const TextStyle = styled.Text`
+font-family: sans-serif;
+font-size: 25px;
+  color: purple;
+`;
+
+const ViewStyle = styled.View`
+  margin: auto;
+  left: 0;
+  right: 0;
+`;
 
 export default withFirebase(SignUp);
 

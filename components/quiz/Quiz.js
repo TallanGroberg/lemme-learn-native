@@ -3,6 +3,7 @@ import {View, Button, Text, Alert} from 'react-native'
 import {withFirebase} from '../../config/firebase/context'
 import Question from '../questions/Questions'
 import axios from 'axios'
+import styled from 'styled-components'
 
 const Quiz = (props) => {
   const [questions, setQuestions] = useState([])
@@ -29,12 +30,13 @@ const Quiz = (props) => {
 
   return (
     <View>
-      <Text>{teachersName === undefined || '' ? null : teachersName}</Text>
-        <Button key={_id}
-                title={`quiz name: ${name}`}
-                  onPress={() => Alert.alert(`this is ${name} `)} />
+      <Text onPress={() => console.log('you pressed text')}>{teachersName === undefined || '' ? null : teachersName}</Text>
     </View>
   );
 };
+
+const ButtonStyle = styled.Button`
+  color: purple;
+`;
 
 export default withFirebase(Quiz);

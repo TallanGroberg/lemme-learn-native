@@ -6,7 +6,7 @@ import Quiz from './Quiz'
 import Nav from '../Nav'
 import MakeQuiz from './MakeQuiz'
 import Questions from '../questions/Questions'
-
+import styled from 'styled-components'
 import {withFirebase} from '../../config/firebase/context'
 
 
@@ -18,23 +18,7 @@ const Quizzes = (props) => {
  
   
   useEffect( () => {
-    axios.get(`https://lemm-learn.herokuapp.com/${user.firebaseUid}`)
-      .then( res => {
-        console.log('got user again!!')
-        setUser(...res.data)
-      })
-
-
-    if(props.user.teacher === true) {
-    axios.get('https://lemme-learn.herokuapp.com/quiz')
-    .then(res => {
-        const yourQuizzes = res.data.filter(quiz => quiz.teacher === props.user.firebaseUid)
-        setQuizzes(yourQuizzes)
-      })
-      .catch(err => console.error(err))
-    } 
-
-    if(props.user.teacher === false) {
+     if(props.user.teacher === false){
       props.user.yourTeachers.map(teacherId => {
         axios.get(`https://lemme-learn.herokuapp.com/quiz/teachersquizzes/${teacherId}`)
         .then(res => {
@@ -43,7 +27,19 @@ const Quizzes = (props) => {
         .catch(err => console.log(err))
       })
     }
+
+      if(props.user.teacher === true) {
+      axios.get('https://lemme-learn.herokuapp.com/quiz')
+      .then(res => {
+          const yourQuizzes = res.data.filter(quiz => quiz.teacher === props.user.firebaseUid)
+          setQuizzes(yourQuizzes)
+        })
+        .catch(err => console.error(err))
+      } 
+    
   }, [])
+
+  
 
   const goToQuiz = (quiz) => {
     console.log('hit goToQuiz')
@@ -57,10 +53,12 @@ const Quizzes = (props) => {
     try {
       await props.firebaseAuth.signOut()
       await props.signOut()
-      props.navigation.push('Home')
     }
     catch(err) {
       console.log(err)
+    }
+    finally {
+      props.navigation.push('Login')
     }
   }
 
@@ -70,10 +68,10 @@ const Quizzes = (props) => {
       
       {quizzes.length === 0 ? <Text>{props.teacher === true ? `try refreshing the page` : `Pick some teachers to see there quizzes, log back in and the quizzes should appear`}</Text> : null}
         {quizzes.map(quiz => {
-          return <View>
+          return <ViewStyle>
                       <Quiz quiz={quiz} /> 
-                      <Button title={user.teacher === true ? 'make questions' : 'take quiz'} onPress={() => goToQuiz(quiz) } />
-                </View>
+                      <TextStyle onPress={() => goToQuiz(quiz) }>{user.teacher === true ? `make questions for ${quiz.name}` : quiz.name}</TextStyle>
+                </ViewStyle>
             })}
           {props.user.teacher === false ?
               <Button title={props.user.yourTeachers.length === undefined || props.user.yourTeachers.length > 0 ? 'change teachers' : 'add teachers'} onPress={() => props.navigation.navigate('PickTeacher')} /> 
@@ -84,5 +82,20 @@ const Quizzes = (props) => {
           </ScrollView>
   );
 };
+
+const ViewStyle = styled.View`
+  margin: auto;
+  left: 0;
+  right: 0;
+  
+  text-align: center;
+  position: relative;
+`;
+const TextStyle = styled.Text`
+
+font-family: sans-serif;
+font-size: 25px;
+  color: purple;
+`;
 
 export default withFirebase(Quizzes);

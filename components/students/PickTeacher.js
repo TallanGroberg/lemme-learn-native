@@ -9,25 +9,17 @@ const PickTeacher = (props) => {
 
   
   useEffect( () => {
-    axios.get('https://lemme-learn.herokuapp.com/user')
-    .then(res => {
-      const allTeachers = res.data.filter(person => person.teacher === true)
-      setTeachers(allTeachers)
-    })
+      axios.get('https://lemme-learn.herokuapp.com/user/teachers')
+        .then(res => {
+          setTeachers(res.data)
+        })
+        .catch(err => console.log(res))
   }, [])
 
-  const addTeachers = async  () => {
-    try {
-      await axios.put(`https://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
-      .then(res => console.log(res.data, res.status))
+  const addTeachers = () => {
+      axios.put(`https://lemme-learn.herokuapp.com/user/${props.user.firebaseUid}`, {yourTeachers: yourTeachers})
+      .then(res => props.navigation.navigate('Login'))
       .catch(err => setError(err.message))
-    }
-    catch(err) {
-      setError(err.message)
-    }
-    finally {
-      props.navigation.navigate('Login')
-    }
   }
 
 
