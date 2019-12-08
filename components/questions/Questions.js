@@ -51,20 +51,16 @@ const Questions = props => {
   
 
   return (
-    <KeyboardAwareScrollView style={{display: "flex", flex: 1, marginBottom: 10,}}>
+    <KeyboardAwareScrollView style={{position: 'relative', marginBottom: 10}}>
       <Text>questions</Text>
       {questions.map((question,i) => {
-        return <KeyboardAvoidingView 
-                  behavior="padding"
-                  style={{ flex: 1,}}>
-                  
+        return <KeyboardAvoidingView style={{margin: 10}} >
                   {props.user.teacher === false && 
                   <View>
                     {error.length > 0 && <Text>{error}</Text>}
                     <Text>{i + 1}. {question.question}</Text>
                     <AnswerQuestions key={i}
                       question={question}
-                     
                       addStudentsAnswers={addStudentsAnswers}  
                         updateQuestions={updateQuestions} 
                         />

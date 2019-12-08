@@ -27,6 +27,8 @@ const MakeQuestions = (props) => {
     setInputs(initState)
   }
 
+  
+
   return (
     <View>
       <Text>MakeQuestions</Text>
