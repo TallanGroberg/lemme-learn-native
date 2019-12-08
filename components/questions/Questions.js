@@ -1,5 +1,6 @@
 import React, { useEffect, useState, } from 'react';
 import {View, Text, Button, ScrollView, KeyboardAvoidingView} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {withFirebase} from '../../config/firebase/context'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -50,7 +51,7 @@ const Questions = props => {
   
 
   return (
-    <ScrollView style={{display: "flex", flex: 1,}}>
+    <KeyboardAwareScrollView style={{display: "flex", flex: 1, marginBottom: 10,}}>
       <Text>questions</Text>
       {questions.map((question,i) => {
         return <KeyboardAvoidingView 
@@ -85,7 +86,7 @@ const Questions = props => {
       }
       <TextStyle onPress={sendsubmissionsToDataBase}>submit quiz</TextStyle>
           <Button title='back to quizzes' onPress={() => props.navigation.push("Quizzes")} />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
