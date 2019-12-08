@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19003,
+  "packagerPid": 96779,
+  "expoServerNgrokUrl": "https://kk-rfv.talon.testingfordatabase.exp.direct",
+  "packagerNgrokUrl": "https://packager.kk-rfv.talon.testingfordatabase.exp.direct",
+  "ngrokPid": 96793,
   "devToolsPort": 19002
 }

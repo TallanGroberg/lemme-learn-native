@@ -94,7 +94,7 @@ const SignUp = (props) => {
       <Text>Role: {inputs.teacher === true ? "Teacher" : "Student"} </Text>
         <RoleStyle style={{color: inputs.teacher === true ? "purple" : "black"}} onPress={makeTeacher}>Teacher</RoleStyle>
         <RoleStyle style={{color: inputs.teacher === true ? "black" : "purple"}} onPress={makeStudent}>Student</RoleStyle>
-            <TextStyle onPress={() => handleSignUp(inputs)}>signup</TextStyle>
+            <TextStyle onPress={() => handleSignUp(inputs)}>double click to signup</TextStyle>
       
       
     </ViewStyle>

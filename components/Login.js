@@ -40,7 +40,7 @@ const Login = (props) => {
           await axios.get(`http://lemme-learn.herokuapp.com/user/${res.user.uid}`)
             .then(user => {
              
-               setResponse(user.data.firebaseUid)
+              //  setResponse(user.data.firebaseUid)
               props.setUser(user.data)
           })
           
@@ -49,7 +49,7 @@ const Login = (props) => {
           console.log('hit errors')
           handleErrors(err.message)
         })
-        if(inputs.email !== '' && inputs.password !== '' && errors.length === 0 && fireBaseResponse === response){
+        if(inputs.email !== '' && inputs.password !== '' && errors.length === 0 && fireBaseResponse !== null){
           console.log('firebaseUid',props.user.firebaseUid)
           props.navigation.navigate('Quizzes')
         } 

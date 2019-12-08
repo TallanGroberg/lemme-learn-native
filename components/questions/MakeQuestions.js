@@ -9,20 +9,22 @@ const MakeQuestions = (props) => {
       question: '',
       correctAnswer: '',
       quiz_id: quiz._id,
-      student_id: user.firebaseUid,
+      teacher_id: user.firebaseUid,
     }
       const [inputs, setInputs] = useState(initState)
+      console.log('iekdie',inputs)
 
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     console.log('handle submit')
     axios.post(`https://lemme-learn.herokuapp.com/question`, inputs)
     .then(res => {
+      console.log('hit res')
       updateQuestions()
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err.message))
     console.log('no errors submit handled')
-    
+    setInputs(initState)
   }
 
   return (

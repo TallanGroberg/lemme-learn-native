@@ -21,16 +21,16 @@ const Questions = props => {
   }, [])
 
   const updateQuestions = () => {
-    axios.get('http://lemme-learn.herokuapp.com/question')
+    axios.get('https://lemme-learn.herokuapp.com/question')
     .then( res => {
       const filterQuestions = res.data.filter(question => question.quiz_id === props.quiz._id)
       setQuestions(filterQuestions)
     })
   }
 
-  const addStudentsAnswers = async (question) => {
+  const addStudentsAnswers = (question) => {
    console.log('addStudentsAnswers');
-    await setQuestionsForGrading(prev => ([...prev, question ]))
+    setQuestionsForGrading(prev => ([...prev, question ]))
     
   }
   const sendsubmissionsToDataBase = () => {
@@ -58,18 +58,28 @@ const Questions = props => {
                   {props.user.teacher === false && 
                   <View>
                     {error.length > 0 && <Text>{error}</Text>}
+                    <Text>{i + 1}. {question.question}</Text>
                     <AnswerQuestions key={i}
                       question={question}
+                     
                       addStudentsAnswers={addStudentsAnswers}  
                         updateQuestions={updateQuestions} 
                         />
                           {submitted === true && <Text>you have successfully submitted this question: {i}</Text>}
                   </View>
                   }
+                  {props.user.teacher === true && 
+                  <View>
+                    <Text>{i + 1}. Question: {question.question}</Text>
+                      <Text>correct answer: {question.correctAnswer}</Text>
+                  </View>
+                  }
               </View>
       })}
       {props.user.teacher === true && 
-        <MakeQuestions updateQuestions={updateQuestions} />
+      
+          <MakeQuestions updateQuestions={updateQuestions} />
+        
       }
       <TextStyle onPress={sendsubmissionsToDataBase}>submit quiz</TextStyle>
           <Button title='back to quizzes' onPress={() => props.navigation.push("Quizzes")} />

@@ -29,7 +29,6 @@ const AnswerQuestions = (props) => {
     <View>
       {hideQuestion === true ? <Text>resubmit</Text> : 
       <View>
-      <Text>{props.question.question}</Text>
       <TextInput placeholder='your answer'
         onChangeText={students_answer => setGrading(prev => ({...prev, students_answer}))} />
         <TextStyle onPress={sendStudentsAnswer}>submit question</TextStyle>
