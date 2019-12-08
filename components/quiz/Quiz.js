@@ -30,7 +30,9 @@ const Quiz = (props) => {
 
   return (
     <View>
-      <Text onPress={() => console.log('you pressed text')}>{teachersName === undefined || '' ? null : teachersName}</Text>
+      {props.user.teacher === false && 
+        <Text onPress={() => console.log('you pressed text')}>{teachersName === undefined || '' ? null : teachersName}</Text>
+      }
     </View>
   );
 };

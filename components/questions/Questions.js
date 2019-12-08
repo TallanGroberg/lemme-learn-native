@@ -8,6 +8,7 @@ import trash from '../images/trash.png'
 
 import MakeQuestions from './MakeQuestions'
 import AnswerQuestions from './AnswerQuestions'
+import EditQuestion from './EditQuestion'
 
 const Questions = props => {
   const [hideQuestion, setHideQuestion] = useState(false)
@@ -47,6 +48,7 @@ const Questions = props => {
         setError(prev => ([...prev, err.message]))
       })
     })
+    props.navigation.navigate("Quizzes")
   }
 
   const handleDelete = (question) => {
@@ -83,6 +85,7 @@ const Questions = props => {
                       <Text>answer: {question.correctAnswer}</Text>
                         <View style={{flexDirection: 'row'}} >
                             <DeleteStyle onPress={() => handleDelete(question)}>Delete</DeleteStyle>
+                              <EditQuestion updateQuestions={updateQuestions} question={question} />
                         </View>
                   </View>
                   }
@@ -93,7 +96,7 @@ const Questions = props => {
           <MakeQuestions updateQuestions={updateQuestions} />
         
       }
-      <TextStyle onPress={sendsubmissionsToDataBase}>submit quiz</TextStyle>
+      {props.user.teacher === false && <TextStyle onPress={sendsubmissionsToDataBase}>submit quiz</TextStyle>}
           <Button title='back to quizzes' onPress={() => props.navigation.push("Quizzes")} />
     </KeyboardAwareScrollView>
   );

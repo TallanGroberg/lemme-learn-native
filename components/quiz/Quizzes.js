@@ -64,13 +64,13 @@ const Quizzes = (props) => {
 
   return (
     <ScrollView>
-      <Text>Quizzes</Text>
+      <Text>{props.user.teacher === true ? 'click on a quiz to make questions' : "click a quiz to answer quiestions"}</Text>
       
       {quizzes.length === 0 ? <Text>{props.teacher === true ? `try refreshing the page` : `Pick some teachers to see there quizzes, log back in and the quizzes should appear`}</Text> : null}
         {quizzes.map(quiz => {
           return <ViewStyle>
                       <Quiz quiz={quiz} /> 
-                      <TextStyle onPress={() => goToQuiz(quiz) }>{user.teacher === true ? `make questions for ${quiz.name}` : quiz.name}</TextStyle>
+                      <TextStyle onPress={() => goToQuiz(quiz) }>{user.teacher === true ? quiz.name : quiz.name}</TextStyle>
                 </ViewStyle>
             })}
           {props.user.teacher === false ?
