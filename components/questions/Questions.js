@@ -55,6 +55,7 @@ const Questions = props => {
     .then( res => {
       updateQuestions()
     })
+    .catch(err => console.log(err))
   }
 
   
@@ -81,7 +82,6 @@ const Questions = props => {
                     <Text>{i + 1}. {question.question}</Text>
                       <Text>answer: {question.correctAnswer}</Text>
                         <View style={{flexDirection: 'row'}} >
-                          <Image source={trash} style={{height: 30, width: 30}}/>
                             <DeleteStyle onPress={() => handleDelete(question)}>Delete</DeleteStyle>
                         </View>
                   </View>
