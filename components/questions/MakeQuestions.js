@@ -27,6 +27,11 @@ const MakeQuestions = (props) => {
     setInputs(initState)
   }
 
+  const handleDelete = (question) => {
+    console.log('handleDelete', question)
+
+  }
+
   
 
   return (
@@ -39,6 +44,7 @@ const MakeQuestions = (props) => {
           value={inputs.correctAnswer}
             onChangeText={ correctAnswer => setInputs(prev => ({...prev, correctAnswer}))} />
               <Button title="submit" onPress={handleSubmit} />
+              
     </View>
   );
 };

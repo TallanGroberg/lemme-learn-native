@@ -1,9 +1,10 @@
 import React, { useEffect, useState, } from 'react';
-import {View, Text, Button, ScrollView, KeyboardAvoidingView} from 'react-native'
+import {View, Text, Button, ScrollView, KeyboardAvoidingView, Image} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {withFirebase} from '../../config/firebase/context'
 import axios from 'axios'
 import styled from 'styled-components'
+import trash from '../images/trash.png'
 
 import MakeQuestions from './MakeQuestions'
 import AnswerQuestions from './AnswerQuestions'
@@ -48,6 +49,14 @@ const Questions = props => {
     })
   }
 
+  const handleDelete = (question) => {
+    console.log('handleDelete', question)
+    axios.delete(`https://lemme-learn.herokuapp.com/question/${question._id}`, question)
+    .then( res => {
+      updateQuestions()
+    })
+  }
+
   
 
   return (
@@ -68,9 +77,13 @@ const Questions = props => {
                   </View>
                   }
                   {props.user.teacher === true && 
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text>{i + 1}. Question: {question.question}</Text>
-                      <Text>correct answer: {question.correctAnswer}</Text>
+                  <View style={{flexDirection: 'colunm', flexWrap: 'wrap'}}>
+                    <Text>{i + 1}. {question.question}</Text>
+                      <Text>answer: {question.correctAnswer}</Text>
+                        <View style={{flexDirection: 'row'}} >
+                          <Image source={trash} style={{height: 30, width: 30}}/>
+                            <DeleteStyle onPress={() => handleDelete(question)}>Delete</DeleteStyle>
+                        </View>
                   </View>
                   }
               </KeyboardAvoidingView>
@@ -91,6 +104,11 @@ const TextStyle = styled.Text`
   font-family: sans-serif;
   font-size: 25px;
     color: purple;
+  `;
+
+  const DeleteStyle = styled.Text`
+    font-size: 10px;
+    color: red;
   `;
 
 export default withFirebase(Questions);
