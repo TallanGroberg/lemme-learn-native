@@ -1,5 +1,5 @@
 import React, { useEffect, useState, } from 'react';
-import {View, Text, Button, ScrollView} from 'react-native'
+import {View, Text, Button, ScrollView, KeyboardAvoidingView} from 'react-native'
 import {withFirebase} from '../../config/firebase/context'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -50,10 +50,12 @@ const Questions = props => {
   
 
   return (
-    <ScrollView>
+    <ScrollView style={{display: "flex", flex: 1,}}>
       <Text>questions</Text>
       {questions.map((question,i) => {
-        return <View>
+        return <KeyboardAvoidingView 
+                  behavior="padding"
+                  style={{ flex: 1,}}>
                   
                   {props.user.teacher === false && 
                   <View>
@@ -69,12 +71,12 @@ const Questions = props => {
                   </View>
                   }
                   {props.user.teacher === true && 
-                  <View>
+                  <View style={{justifyContent: 'flex-end'}}>
                     <Text>{i + 1}. Question: {question.question}</Text>
                       <Text>correct answer: {question.correctAnswer}</Text>
                   </View>
                   }
-              </View>
+              </KeyboardAvoidingView>
       })}
       {props.user.teacher === true && 
       
